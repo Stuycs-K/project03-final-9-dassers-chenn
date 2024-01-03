@@ -3,8 +3,8 @@
 
 ### GROUP NAME HERE
 
-Group Members Here
-       
+Sophia Dasser and Niki Chen
+
 ### Project Description:
 
 Explain what is this project.
