@@ -13,20 +13,25 @@ We'll be creating a chat that uses select statements to connect a server to mult
     
 # Intended usage:
 
-interface: on the terminal
-multiple clients connected to the same server
-shows chat log for every client immediately
-clients can send to chat at the same time  
+- interface: on the terminal
+- multiple clients connected to the same server
+- shows chat log for every client immediately
+- clients can send to chat at the same time  
+
 features: 
-- timestamp
-- client's name
+* timestamp
+* client's name
 
 # Technical Details:
 
 A description of your technical design. This should include:
    
 How you will be using the topics covered in class in the project.
-     sockets, pipes, processes (fork), working with files
+
+* sockets
+* pipes
+* processes (fork)
+* working with files
 
 How you are breaking down the project and who is responsible for which parts.
 
