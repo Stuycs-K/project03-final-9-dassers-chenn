@@ -27,34 +27,36 @@ A description of your technical design. This should include:
    
 How you will be using the topics covered in class in the project.
      sockets, pipes, processes (fork), working with files
-How you are breaking down the project and who is responsible for which parts.
-    select statements (mr. k demo)
-    server:
-    - receives all client messages and writes it into a txt file w/ timestamp (Sophia)
-    - stores time that the server receives the message from client (Niki)
-    - echos it back to all clients with timestamp (Niki)
-    - continues to wait for new messages (Sophia)
-    - keep chat open until all clients log off (Niki)
-    - chat log will be found in the directory of the client that initiated the chat (Sophia)
 
-    client:
-    - initiates a username (Sophia)
-    - initiate chat (Niki)
-    - initiate connection with server (Sophia)
-    - waits for user input (Niki)
-    - writes to server (Sophia)
-    - display chat log in real time (Niki)
-    - displays username with every message (Sophia)
-    - store time (Niki)
-    - clients send an interrupt signal to log off chat (Sophia)
+How you are breaking down the project and who is responsible for which parts.
+
+select statements (mr. k demo)
+server:
+* receives all client messages and writes it into a txt file w/ timestamp (Sophia)
+* stores time that the server receives the message from client (Niki)
+* echos it back to all clients with timestamp (Niki)
+* continues to wait for new messages (Sophia)
+* keep chat open until all clients log off (Niki)
+* chat log will be found in the directory of the client that initiated the chat (Sophia)
+
+client:
+* initiates a username (Sophia)
+* initiate chat (Niki)
+* initiate connection with server (Sophia)
+* waits for user input (Niki)
+* writes to server (Sophia)
+* display chat log in real time (Niki)
+* displays username with every message (Sophia)
+* store time (Niki)
+* clients send an interrupt signal to log off chat (Sophia)
 
 What data structures you will be using and how.
 
 A struct will be created for each client containing:
-       - a char array that holds the username
-       - a char array that holds the message
-       - an int that holds the time
-       - a boolean that will contain whether the client is active or not (maybe)
+* a char array that holds the username
+* a char array that holds the message
+* an int that holds the time
+* a boolean that will contain whether the client is active or not (maybe)
 
 We will be using:
 Pipes - to secure a connection between the clients and servers
