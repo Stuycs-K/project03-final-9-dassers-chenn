@@ -25,6 +25,9 @@ int main(int argc, char *argv[] ) {
     IP=argv[1];
   }
   int server_socket = client_tcp_handshake(IP);
-  printf("client connected.\n");
+  
+  while(1){
+  printf("reconnect client.\n");
   clientLogic(server_socket);
+}
 }

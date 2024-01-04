@@ -20,17 +20,59 @@ void subserver_logic(int client_socket){
 int main(int argc, char *argv[] ) { 
   int listen_socket = server_setup(); 
 
-  while (1) {
-    int client_socket = server_tcp_handshake(listen_socket);
+  fd_set read_fds;
+  char buff[BUFFER_SIZE] = "";
 
-    pid_t f = fork();
-    if (f == 0) {
-      subserver_logic(client_socket);
-      exit(0);
+  while(1){
+
+        FD_ZERO(&read_fds);
+        FD_SET(STDIN_FILENO, &read_fds);
+        FD_SET(listen_socket,&read_fds);
+        int i = select(listen_socket+1, &read_fds, NULL, NULL, NULL);
+
+        //if standard in, use fgets
+        if (FD_ISSET(STDIN_FILENO, &read_fds)) {
+            fgets(buff, sizeof(buff), stdin);
+            buff[strlen(buff)-1]=0;
+            printf("Recieved from terminal: '%s'\n",buff);
+        }
+
+        // if socket
+        if (FD_ISSET(listen_socket, &read_fds)) {
+            //accept the connection
+            int client_socket = server_tcp_handshake(listen_socket);            
+            printf("Connected, waiting for data.\n");
+
+            //read the whole buff
+            read(client_socket,buff, sizeof(buff));
+            //trim the string
+            buff[strlen(buff)-1]=0; //clear newline
+            if(buff[strlen(buff)-1]==13){
+                //clear windows line ending
+                buff[strlen(buff)-1]=0;
+            }
+
+            printf("\nRecieved from client '%s'\n",buff);
+
+            //echo the message to all clients
+
+          while (1) {
+            listen_socket = server_setup();
+            int f = fork();
+            if(f<0){
+              printf("fork failed");
+            }
+
+            else if(f==0){
+              while (1){
+                read(listen_socket, &buff, BUFFER_SIZE);
+                write(client_socket, &buff, BUFFER_SIZE);
+              }
+            }
+          }
+          close(client_socket);
+
+        }
     }
-    else {
-      close(client_socket);
-    }
-  }
 
 }
