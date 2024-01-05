@@ -63,6 +63,9 @@ A struct will be created for each client containing:
 * an int that holds the time
 * a boolean that will contain whether the client is active or not (maybe)
 
+An array of the client structs so that we can listen to them (through sockets)
+
+
 We will be using:
 Pipes - to secure a connection between the clients and servers
 Sockets - to connect multiple clients to the same server
@@ -70,7 +73,6 @@ Processes - we will use forking so that the client will always be prompted to sa
 File Processes - we will create a chatlog.txt that will be appended with every new message and downloaded on the client of every computer
 Select with many clients - we will maintain a list of clients that have joined the chat to connect it with the server
      
-What algorithms and /or data structures you will be using, and how.
     
 # Intended pacing:
 
