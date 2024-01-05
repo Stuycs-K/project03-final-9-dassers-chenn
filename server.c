@@ -55,22 +55,7 @@ int main(int argc, char *argv[] ) {
             printf("\nRecieved from client '%s'\n",buff);
 
             //echo the message to all clients
-
-          while (1) {
-            listen_socket = server_setup();
-            int f = fork();
-            if(f<0){
-              printf("fork failed");
-            }
-
-            else if(f==0){
-              while (1){
-                read(listen_socket, &buff, BUFFER_SIZE);
-                write(client_socket, &buff, BUFFER_SIZE);
-              }
-            }
-          }
-          close(client_socket);
+            close(client_socket);
 
         }
     }
