@@ -10,12 +10,21 @@
 #include <sys/wait.h>
 #include <sys/socket.h> 
 #include <netdb.h>
-
+#include <time.h>
+#include <stdbool.h>
 
 #ifndef NETWORKING_H
 #define NETWORKING_H
 #define PORT "19230"
 #define BUFFER_SIZE 1024
+
+struct client_sockets {
+    char* username;
+    char* message;
+    time_t time;
+    bool is_active;
+}
+
 void err(int i, char*message);
 int server_setup();
 int client_tcp_handshake(char*server_address);
