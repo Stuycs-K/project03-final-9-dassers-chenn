@@ -18,12 +18,18 @@ void subserver_logic(int client_socket){
 }
 
 int main(int argc, char *argv[] ) { 
-  int listen_socket = server_setup(); 
 
   fd_set read_fds;
   char buff[BUFFER_SIZE] = "";
 
   while(1){
+
+        struct client_socket** listen_sockets = malloc( 5 * sizeof(struct client_socket));
+
+        for( int i = 0; i < 5; i++){
+            int listen_sockets[i] = server_setup(); 
+
+        }
 
         FD_ZERO(&read_fds);
         FD_SET(STDIN_FILENO, &read_fds);
