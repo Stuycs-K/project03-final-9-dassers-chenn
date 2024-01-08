@@ -26,9 +26,9 @@ int main(int argc, char *argv[] ) {
   }
   
   
-  while(1){
-  int server_socket = client_tcp_handshake(IP);
-  printf("reconnect client.\n");
-  clientLogic(server_socket);
-}
+    while(1){
+        int server_socket = client_tcp_handshake(IP);
+        printf("reconnect client.\n");
+        clientLogic(server_socket);
+    }
 }

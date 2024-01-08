@@ -21,9 +21,10 @@
 struct client_sockets {
     char* username;
     char* message;
+    int socket;
     time_t time;
     bool is_active;
-}
+};
 
 void err(int i, char*message);
 int server_setup();
