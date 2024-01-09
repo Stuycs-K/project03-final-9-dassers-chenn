@@ -16,7 +16,7 @@ void clientLogic(int server_socket){
   read(server_socket, input, sizeof(input));
   
   // prints the modified string
-  printf("Modified: %s\n", input);
+  printf("Message: %s\n", input);
 }
 
 int main(int argc, char *argv[] ) {
@@ -25,10 +25,10 @@ int main(int argc, char *argv[] ) {
     IP=argv[1];
   }
   
-  
     while(1){
         int server_socket = client_tcp_handshake(IP);
         printf("reconnect client.\n");
-        clientLogic(server_socket);
+        clientLogic(server_socket); // use different socket for each client
+        close(server_socket);
     }
 }
