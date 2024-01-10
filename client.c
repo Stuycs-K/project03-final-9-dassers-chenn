@@ -26,9 +26,41 @@ int main(int argc, char *argv[] ) {
   }
   
     while(1){
+        // int server_socket = client_tcp_handshake(IP);
+        // printf("reconnect client.\n");
+        // clientLogic(server_socket); // use different socket for each client
+        // close(server_socket);
+
+
+
         int server_socket = client_tcp_handshake(IP);
-        printf("reconnect client.\n");
-        clientLogic(server_socket); // use different socket for each client
-        close(server_socket);
+        fd_set read_fds;
+        char buff[BUFFER_SIZE] = "";
+
+        FD_ZERO(&read_fds);
+        FD_SET(STDIN_FILENO, &read_fds);
+        FD_SET(server_socket, &read_fds);
+
+        while (1) {
+            printf("Enter message: ");
+
+            select(server_socket + 1, &read_fds, NULL, NULL, NULL);
+
+            // if standard in, use fgets
+            if (FD_ISSET(STDIN_FILENO, &read_fds)) {
+                fgets(buff, sizeof(buff), stdin);
+                buff[strlen(buff)-1]=0; //clear newline
+                if(buff[strlen(buff)-1]==13){
+                    //clear windows line ending
+                    buff[strlen(buff)-1]=0;
+                }
+                write(server_socket, buff, sizeof(buff));
+            }
+
+            if (FD_ISSET(server_socket, &read_fds)) {
+                int val = read(server_socket, buff, sizeof(buff));
+                printf("message: %s\n", buff);
+            }
+        }
     }
 }
