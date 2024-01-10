@@ -11,8 +11,22 @@ Outlined project in proposal; filled out all fields - 1 hour
 ### 2024-01-04 - Basic server and client network
 Together, we pair programmed networking.c, included select statement so multiple clients can connect to a single server. Tried to make server continue receiving client messages after the first one. - 2 hours
 
-### 2024-01-05 - 
-Made server continue receiving client messages indefinitely. 
+### 2024-01-05 - Persistent server
+Made server continue receiving client messages indefinitely.  - 1 hour
+
+### 2024-01-07 - Invididual sockets for each client
+Tried to have server to listen from five different sockets for different clients - 45 mins
+Implemented client_sockets struct to store data about clients & messages - 20 mins
+
+### 2024-01-08 - Invididual sockets for each client
+Replaced client_sockets array with int sockets array - 15 mins
+Server still only listens once - 1 hour
+
+### 2024-01-09 - Client communication
+Server can listen to one client at a time indefinitely - 1 hour
+New version: server allows multiple clients to connect and echos messages (kind of, not really working). buff not clearing after every message stored. clients can't send multiple consecutive messages (needs to wait) - 1.5 hours
+
+
 
 ## Sophia Dasser
 
