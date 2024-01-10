@@ -37,12 +37,10 @@ int main(int argc, char *argv[] ) {
         fd_set read_fds;
         char buff[BUFFER_SIZE] = "";
 
-        FD_ZERO(&read_fds);
-        FD_SET(STDIN_FILENO, &read_fds);
-        FD_SET(server_socket, &read_fds);
-
         while (1) {
-            printf("Enter message: ");
+            FD_ZERO(&read_fds);
+            FD_SET(STDIN_FILENO, &read_fds);
+            FD_SET(server_socket, &read_fds);
 
             select(server_socket + 1, &read_fds, NULL, NULL, NULL);
 
@@ -58,6 +56,7 @@ int main(int argc, char *argv[] ) {
             }
 
             if (FD_ISSET(server_socket, &read_fds)) {
+                printf("reading from server...\n");
                 int val = read(server_socket, buff, sizeof(buff));
                 printf("message: %s\n", buff);
             }
