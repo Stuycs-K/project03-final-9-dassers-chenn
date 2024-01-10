@@ -15,12 +15,11 @@ int main(int argc, char *argv[]) {
     FD_SET(listen_socket, &read_fds);
 
     while (1) {
-        printf("\nlistening\n");
-
         max = listen_socket;
         for (int i = 0; i < MAX_CLIENTS; i++) {
             if (sockets[i] > 0) {
                 FD_SET(sockets[i], &read_fds);
+                printf("still listening from %d\n", i);
             }
             if (sockets[i] > max) {
                 max = sockets[i];
@@ -58,23 +57,14 @@ int main(int argc, char *argv[]) {
                     close(sockets[i]);
                     sockets[i] = 0;
                 } else {
-                    // trim the string
-                    buff[strlen(buff)-1]=0; //clear newline
-                    if(buff[strlen(buff)-1]==13){
-                        //clear windows line ending
-                        buff[strlen(buff)-1]=0;
-                    }
                     printf("\nReceived from client %d: '%s'\n", i, buff);
 
                     // Echo the message to all clients
                     for (int j = 0; j < MAX_CLIENTS; j++) {
                         if (sockets[j] != 0 && j != i) {
-                            send(sockets[j], buff, strlen(buff), 0);
+                            write(sockets[j], buff, sizeof(buff));
+                            printf("echoed message to client %d\n", j);
                         }
-                    }
-
-                    for (int i = 0; i < strlen(buff); i++) {
-                        buff[i] = 0;
                     }
                 }
             }
@@ -82,6 +72,9 @@ int main(int argc, char *argv[]) {
         FD_ZERO(&read_fds);
         FD_SET(STDIN_FILENO, &read_fds);
         FD_SET(listen_socket, &read_fds);
+        for (int i = 0; i < strlen(buff); i++) {
+            buff[i] = 0;
+        }
     }
     return 0;
 }

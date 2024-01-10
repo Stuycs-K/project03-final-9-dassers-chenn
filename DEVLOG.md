@@ -26,6 +26,10 @@ Server still only listens once - 1 hour
 Server can listen to one client at a time indefinitely - 1 hour
 New version: server allows multiple clients to connect and echos messages (kind of, not really working). buff not clearing after every message stored. clients can't send multiple consecutive messages (needs to wait) - 1.5 hours
 
+### 2024-01-10 - Client sending messages
+Server listens to all client messages - 30 mins
+Server echos message from client to others - 30 mins
+
 
 
 ## Sophia Dasser
