@@ -57,7 +57,11 @@ int main(int argc, char *argv[] ) {
 
             if (FD_ISSET(server_socket, &read_fds)) {
                 printf("reading from server...\n");
-                int val = read(server_socket, buff, sizeof(buff));
+                int bytes = read(server_socket, buff, sizeof(buff));
+                if (bytes == 0) {
+                  printf("CLOSING SERVER SOCKET\n");
+                  close(server_socket);
+                }
                 printf("message: %s\n", buff);
             }
         }

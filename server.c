@@ -8,6 +8,9 @@ int main(int argc, char *argv[]) {
     fd_set read_fds;
     char buff[BUFFER_SIZE] = "";
     int sockets[MAX_CLIENTS];
+    for (int i = 0; i < MAX_CLIENTS; i++) {
+      sockets[i] = 0;
+    }
 
     listen_socket = server_setup();
     FD_ZERO(&read_fds);
@@ -16,6 +19,7 @@ int main(int argc, char *argv[]) {
 
     while (1) {
         max = listen_socket;
+        printf("listen socket: %d\n", listen_socket);
         for (int i = 0; i < MAX_CLIENTS; i++) {
             if (sockets[i] > 0) {
                 FD_SET(sockets[i], &read_fds);
@@ -25,8 +29,8 @@ int main(int argc, char *argv[]) {
                 max = sockets[i];
             }
         }
-
         select(max + 1, &read_fds, NULL, NULL, NULL);
+        printf("SELECTED\n");
 
         // if standard in, use fgets
         if (FD_ISSET(STDIN_FILENO, &read_fds)) {
@@ -51,8 +55,8 @@ int main(int argc, char *argv[]) {
 
         for (int i = 0; i < MAX_CLIENTS; i++) {
             if (FD_ISSET(sockets[i], &read_fds)) {
-                int val = read(sockets[i], buff, sizeof(buff));
-                if (val <= 0) {
+                int bytes = read(sockets[i], buff, sizeof(buff));
+                if (bytes == 0) {
                     printf("Client %d disconnected\n", i);
                     close(sockets[i]);
                     sockets[i] = 0;
