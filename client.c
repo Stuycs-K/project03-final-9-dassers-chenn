@@ -24,6 +24,11 @@ int main(int argc, char *argv[] ) {
   if(argc>1){
     IP=argv[1];
   }
+
+  //username of client:
+  char username[BUFFER_SIZE] = "";
+  printf("Please input your preferred username:\n");
+  fgets(username, sizeof(username), stdin);
   
     while(1){
         int server_socket = client_tcp_handshake(IP);
@@ -54,7 +59,7 @@ int main(int argc, char *argv[] ) {
                   printf("CLOSED SERVER SOCKET\n");
                   close(server_socket);
                 }
-                printf("message: \t\t%s\n", buff);
+                printf("%s's message: %s\n", username, buff);
             }
         }
     }
