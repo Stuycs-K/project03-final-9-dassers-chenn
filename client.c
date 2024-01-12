@@ -20,9 +20,12 @@ void clientLogic(int server_socket){
 }
 
 int main(int argc, char *argv[] ) {
-  char* IP = "149.89.161.121";
+  char* IP = "127.0.0.1";
   if(argc>1){
     IP=argv[1];
+    printf("The current IP: %s\n", IP);
+
+
   }
   
     while(1){
