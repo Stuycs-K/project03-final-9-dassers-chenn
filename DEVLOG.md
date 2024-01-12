@@ -30,6 +30,13 @@ New version: server allows multiple clients to connect and echos messages (kind 
 Server listens to all client messages - 30 mins
 Server echos message from client to others - 30 mins
 
+### 2024-01-11 - Seg fault on lab machine
+Server seg faults on lab machine because we forgot to initalize the sockets array, fixed - 1 hour
+
+### 2024-01-12 - Testing connection between lab machines
+Tried connecting a non-lab machine to lab machine, did not work
+Connection between two lab machines works - 1 hour
+
 
 
 ## Sophia Dasser

@@ -20,19 +20,12 @@ void clientLogic(int server_socket){
 }
 
 int main(int argc, char *argv[] ) {
-  char* IP = "149.89.161.121";
+  char* IP = "127.0.0.1";
   if(argc>1){
     IP=argv[1];
   }
   
     while(1){
-        // int server_socket = client_tcp_handshake(IP);
-        // printf("reconnect client.\n");
-        // clientLogic(server_socket); // use different socket for each client
-        // close(server_socket);
-
-
-
         int server_socket = client_tcp_handshake(IP);
         fd_set read_fds;
         char buff[BUFFER_SIZE] = "";
@@ -56,13 +49,12 @@ int main(int argc, char *argv[] ) {
             }
 
             if (FD_ISSET(server_socket, &read_fds)) {
-                printf("reading from server...\n");
                 int bytes = read(server_socket, buff, sizeof(buff));
                 if (bytes == 0) {
-                  printf("CLOSING SERVER SOCKET\n");
+                  printf("CLOSED SERVER SOCKET\n");
                   close(server_socket);
                 }
-                printf("message: %s\n", buff);
+                printf("message: \t\t%s\n", buff);
             }
         }
     }
