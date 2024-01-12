@@ -19,7 +19,6 @@ int main(int argc, char *argv[]) {
 
     while (1) {
         max = listen_socket;
-        printf("listen socket: %d\n", listen_socket);
         for (int i = 0; i < MAX_CLIENTS; i++) {
             if (sockets[i] > 0) {
                 FD_SET(sockets[i], &read_fds);
@@ -30,7 +29,6 @@ int main(int argc, char *argv[]) {
             }
         }
         select(max + 1, &read_fds, NULL, NULL, NULL);
-        printf("SELECTED\n");
 
         // if standard in, use fgets
         if (FD_ISSET(STDIN_FILENO, &read_fds)) {

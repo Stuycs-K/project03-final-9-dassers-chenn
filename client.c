@@ -27,15 +27,13 @@ int main(int argc, char *argv[] ) {
 
 
   }
+
+  //username of client:
+  char username[BUFFER_SIZE] = "";
+  printf("Please input your preferred username:\n");
+  fgets(username, sizeof(username), stdin);
   
     while(1){
-        // int server_socket = client_tcp_handshake(IP);
-        // printf("reconnect client.\n");
-        // clientLogic(server_socket); // use different socket for each client
-        // close(server_socket);
-
-
-
         int server_socket = client_tcp_handshake(IP);
         fd_set read_fds;
         char buff[BUFFER_SIZE] = "";
@@ -59,13 +57,12 @@ int main(int argc, char *argv[] ) {
             }
 
             if (FD_ISSET(server_socket, &read_fds)) {
-                printf("reading from server...\n");
                 int bytes = read(server_socket, buff, sizeof(buff));
                 if (bytes == 0) {
-                  printf("CLOSING SERVER SOCKET\n");
+                  printf("CLOSED SERVER SOCKET\n");
                   close(server_socket);
                 }
-                printf("message: %s\n", buff);
+                printf("%s's message: %s\n", username, buff);
             }
         }
     }
