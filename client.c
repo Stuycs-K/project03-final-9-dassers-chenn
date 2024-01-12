@@ -20,7 +20,7 @@ void clientLogic(int server_socket){
 }
 
 int main(int argc, char *argv[] ) {
-  char* IP = "127.0.0.1";
+  char* IP = "149.89.161.121";
   if(argc>1){
     IP=argv[1];
   }
