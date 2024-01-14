@@ -8,8 +8,13 @@ int main(int argc, char *argv[]) {
     fd_set read_fds;
     char buff[BUFFER_SIZE] = "";
     int sockets[MAX_CLIENTS];
+    // struct client_sockets** sockets = malloc( MAX_CLIENTS * sizeof(struct client_sockets));
+
+    struct client_sockets* client = malloc(sizeof(struct client_sockets));
+
+
     for (int i = 0; i < MAX_CLIENTS; i++) {
-      sockets[i] = 0;
+        sockets[i] = 0;
     }
 
     listen_socket = server_setup();
@@ -22,7 +27,6 @@ int main(int argc, char *argv[]) {
         for (int i = 0; i < MAX_CLIENTS; i++) {
             if (sockets[i] > 0) {
                 FD_SET(sockets[i], &read_fds);
-                printf("still listening from %d\n", i);
             }
             if (sockets[i] > max) {
                 max = sockets[i];
@@ -53,19 +57,18 @@ int main(int argc, char *argv[]) {
 
         for (int i = 0; i < MAX_CLIENTS; i++) {
             if (FD_ISSET(sockets[i], &read_fds)) {
-                int bytes = read(sockets[i], buff, sizeof(buff));
+                int bytes = read(sockets[i], client, sizeof(struct client_sockets));
                 if (bytes == 0) {
-                    printf("Client %d disconnected\n", i);
+                    printf("%s disconnected\n", client->username);
                     close(sockets[i]);
                     sockets[i] = 0;
                 } else {
-                    printf("\nReceived from client %d: '%s'\n", i, buff);
+                    printf("\nReceived from %s: '%s'\n", client->username, client->message);
 
                     // Echo the message to all clients
                     for (int j = 0; j < MAX_CLIENTS; j++) {
                         if (sockets[j] != 0 && j != i) {
-                            write(sockets[j], buff, sizeof(buff));
-                            printf("echoed message to client %d\n", j);
+                            write(sockets[j], client, sizeof(struct client_sockets));
                         }
                     }
                 }

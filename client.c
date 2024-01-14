@@ -29,9 +29,15 @@ int main(int argc, char *argv[] ) {
   }
 
   //username of client:
-  char username[BUFFER_SIZE] = "";
+  char name[BUFFER_SIZE] = "";
   printf("Please input your preferred username:\n");
-  fgets(username, sizeof(username), stdin);
+  fgets(name, sizeof(name), stdin);
+
+  struct client_sockets* client = malloc(sizeof(struct client_sockets));
+  name[strlen(name)-1]=0; //clear newline
+  strcpy(client->username, name);
+
+  struct client_sockets* messaging_client = malloc(sizeof(struct client_sockets));
   
     while(1){
         int server_socket = client_tcp_handshake(IP);
@@ -53,16 +59,18 @@ int main(int argc, char *argv[] ) {
                     //clear windows line ending
                     buff[strlen(buff)-1]=0;
                 }
-                write(server_socket, buff, sizeof(buff));
+                
+                strcpy(client->message, buff);
+                write(server_socket, client, sizeof(struct client_sockets));
             }
 
             if (FD_ISSET(server_socket, &read_fds)) {
-                int bytes = read(server_socket, buff, sizeof(buff));
+                int bytes = read(server_socket, messaging_client, sizeof(struct client_sockets));
                 if (bytes == 0) {
                   printf("CLOSED SERVER SOCKET\n");
                   close(server_socket);
                 }
-                printf("%s's message: %s\n", username, buff);
+                printf("%s's message: %s\n", messaging_client->username, messaging_client->message);
             }
         }
     }

@@ -37,6 +37,10 @@ Server seg faults on lab machine because we forgot to initalize the sockets arra
 Tried connecting a non-lab machine to lab machine, did not work
 Connection between two lab machines works - 1 hour
 
+### 2024-01-13 - Username implemented
+Sends struct through sockets; structs contain username and message - 40 mins
+Incoming messages on client end displays username - 30 mins
+
 
 
 ## Sophia Dasser
