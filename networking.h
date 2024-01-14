@@ -20,8 +20,8 @@
 #define BUFFER_SIZE 1024
 
 struct client_sockets {
-    char* username;
-    char* message;
+    char username[BUFFER_SIZE];
+    char message[BUFFER_SIZE];
     int socket;
     time_t time;
     bool is_active;
