@@ -2,8 +2,9 @@
 #define MAX_CLIENTS 5
 
 
-int main(int argc, char *argv[]) {
 
+int main(int argc, char *argv[]) {
+    FILE* chat_log;
     int listen_socket, client_socket, max;
     fd_set read_fds;
     char buff[BUFFER_SIZE] = "";
@@ -21,6 +22,9 @@ int main(int argc, char *argv[]) {
     FD_ZERO(&read_fds);
     FD_SET(STDIN_FILENO, &read_fds);
     FD_SET(listen_socket, &read_fds);
+
+    chat_log = fopen("chatlog.txt", "a");  // Open in append mode
+
 
     while (1) {
         max = listen_socket;
@@ -60,10 +64,16 @@ int main(int argc, char *argv[]) {
                 int bytes = read(sockets[i], client, sizeof(struct client_sockets));
                 if (bytes == 0) {
                     printf("[%s] %s disconnected\n", get_timestamp(), client->username);
+                    fprintf(chat_log, "[%s] %s disconnected\n", get_timestamp(), client->username);
+                    fflush(chat_log);
                     close(sockets[i]);
                     sockets[i] = 0;
                 } else {
                     printf("%s\n", client->message);
+
+                    // Write the message to the chat log
+                    fprintf(chat_log, "%s\n", client->message);
+                    fflush(chat_log);
 
                     // Echo the message to all clients
                     for (int j = 0; j < MAX_CLIENTS; j++) {
@@ -81,6 +91,7 @@ int main(int argc, char *argv[]) {
             buff[i] = 0;
         }
     }
+    fclose(chat_log);
     return 0;
 }
 

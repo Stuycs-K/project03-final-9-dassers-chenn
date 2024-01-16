@@ -38,7 +38,6 @@ int main(int argc, char *argv[] ) {
 
             // if standard in, use fgets
             if (FD_ISSET(STDIN_FILENO, &read_fds)) {
-                printf("your message: ");
                 fgets(buff, sizeof(buff), stdin);
                 buff[strlen(buff)-1]=0; //clear newline
                 if(buff[strlen(buff)-1]==13){
