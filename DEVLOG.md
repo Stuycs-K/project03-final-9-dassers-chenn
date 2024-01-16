@@ -41,6 +41,14 @@ Connection between two lab machines works - 1 hour
 Sends struct through sockets; structs contain username and message - 40 mins
 Incoming messages on client end displays username - 30 mins
 
+### 2024-01-14 - Client disconnect message
+Server displays the name of client that disconnected; Stores all client structs in an array
+Only displays name of the client that last sent a message - 1.5 hours
+
+### 2024-01-15 - Client connect/disconnect message
+Tried to fix disconnect bug, but it's still skewed
+Increased max clients to 10
+
 
 
 ## Sophia Dasser

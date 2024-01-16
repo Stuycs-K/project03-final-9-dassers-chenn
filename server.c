@@ -1,5 +1,5 @@
 #include "networking.h"
-#define MAX_CLIENTS 5
+#define MAX_CLIENTS 10
 
 
 
@@ -9,13 +9,14 @@ int main(int argc, char *argv[]) {
     fd_set read_fds;
     char buff[BUFFER_SIZE] = "";
     int sockets[MAX_CLIENTS];
-    // struct client_sockets** sockets = malloc( MAX_CLIENTS * sizeof(struct client_sockets));
+    // struct client_sockets** clients = malloc( MAX_CLIENTS * sizeof(struct client_sockets));
 
     struct client_sockets* client = malloc(sizeof(struct client_sockets));
 
 
     for (int i = 0; i < MAX_CLIENTS; i++) {
         sockets[i] = 0;
+        // clients[i] = malloc(sizeof(struct client_sockets));
     }
 
     listen_socket = server_setup();
@@ -67,8 +68,9 @@ int main(int argc, char *argv[]) {
                     fprintf(chat_log, "[%s] %s disconnected\n", get_timestamp(), client->username);
                     fflush(chat_log);
                     close(sockets[i]);
-                    sockets[i] = 0;
+                    sockets[i] = 0;                    
                 } else {
+                    // clients[i] = client;
                     printf("%s\n", client->message);
 
                     // Write the message to the chat log
