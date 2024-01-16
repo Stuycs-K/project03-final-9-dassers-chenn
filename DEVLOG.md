@@ -71,7 +71,11 @@ Because we did most of our work on a mac, we realized that we needed to iniatliz
 ### 2024-01-12 - Tested Sockets
 We tested sockets from multiple lab machines to the same server (IT WORKS!!!) and made everything look more like a chat, we also worked on bringing back the struct idea we had in 01/08 - 2hr
 
+### 2024-01-14 - More Chat-like
+Fixed the chat to look more chat like with interaction between clients to include the user of the client. (1hr)
 
+### 2024-01-15 - Chat-log and Time stamps
+A chat log is created with every new chat and time stamps are sent with every message (2.5 hr)
 
 
 
