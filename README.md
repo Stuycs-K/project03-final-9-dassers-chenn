@@ -15,8 +15,10 @@ To compile the program please run:
 make compile
 
 To run the program please open multiple terminal windows:
-1. Create one server using ./server
-2. Create up to 5 clients (that is simply our max but that constant can change if needed) using ./client
+1. Create one server use:
+    ./server
+2. Create up to 5 clients (that is simply our max but that constant can change if needed) use:
+    ./client
    
 How does the user interact with this program?
 The user is first prompted to create a username and then can send messages to any of the other connected clients/server.
