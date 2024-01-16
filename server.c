@@ -1,6 +1,6 @@
 #include "networking.h"
-
 #define MAX_CLIENTS 5
+
 
 int main(int argc, char *argv[]) {
 
@@ -59,11 +59,11 @@ int main(int argc, char *argv[]) {
             if (FD_ISSET(sockets[i], &read_fds)) {
                 int bytes = read(sockets[i], client, sizeof(struct client_sockets));
                 if (bytes == 0) {
-                    printf("%s disconnected\n", client->username);
+                    printf("[%s] %s disconnected\n", get_timestamp(), client->username);
                     close(sockets[i]);
                     sockets[i] = 0;
                 } else {
-                    printf("\nReceived from %s: '%s'\n", client->username, client->message);
+                    printf("%s\n", client->message);
 
                     // Echo the message to all clients
                     for (int j = 0; j < MAX_CLIENTS; j++) {
@@ -83,3 +83,7 @@ int main(int argc, char *argv[]) {
     }
     return 0;
 }
+
+
+
+

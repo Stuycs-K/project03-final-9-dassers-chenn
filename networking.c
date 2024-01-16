@@ -16,7 +16,7 @@ int client_tcp_handshake(char * server_address) {
   //create the socket
   serverd = socket(results->ai_family, results->ai_socktype, results->ai_protocol);
   err(serverd, "socket not created");
-  printf("Client: socket accepted\n");
+  printf("You've connected to the chat!\n");
 
   bind(serverd, results->ai_addr, results->ai_addrlen);
   //connect to the server
@@ -79,6 +79,18 @@ int server_setup() {
   freeaddrinfo(results);
   
   return clientd;
+}
+
+char* get_timestamp() {
+    time_t rawtime;
+    struct tm *info;
+    char *timestamp = malloc(20 * sizeof(char));
+
+    time(&rawtime);
+    info = localtime(&rawtime);
+
+    strftime(timestamp, 20, "%Y-%m-%d %H:%M:%S", info);
+    return timestamp;
 }
 
 void err(int i, char*message){
